@@ -1,63 +1,60 @@
-# TDDBC for TypeScript + Jest with Node.js
+# お題
 
-これは、TDDBC の TypeScript + Jest 向けプロジェクトです。
+整数閉区間を示すクラス（あるいは構造体）をつくりたい。整数閉区間オブジェクトは下端点と上端点を持ち、文字列表現も返せる（例: 下端点 3, 上端点 8 の整数閉区間の文字列表記は "[3,8]"
+）。ただし、上端点より下端点が大きい閉区間を作ることはできない。整数の閉区間は指定した整数を含むかどうかを判定できる。また、別の閉区間と等価かどうかや、完全に含むかどうかも判定できる。
 
-## Documentation
+# 機能要件
 
-### セットアップ&テスト
+- 二つの整数を受け取れる
+  - a <= bだけ受け付ける
+  - b <= aだったらswapする
+  - 下端点を返せるメソッド
+    - 入力なし,出力は下端点を整数で返す
+  - 上端点を返せるメソッド(get)
+    - 入力なし,出力は上端点を整数で返す
+- 閉区間の文字列表現が返せる
+  - ["a", "b"]
+- ある整数がその閉区間に含まれるか否か
+  - 整数の入力だけ
+- 包括関係の比較ができる
+  - 等価
+  - 真部分集合
 
-```sh
-$ git clone https://github.com/tddbc/typescript-jest.git
-$ cd typescript-jest
-$ npm install
-$ npm test
+# テスト項目
 
-> typescript-jest@0.1.0 pretest
-> npm run fmt:check && npm run lint
-
-
-> typescript-jest@0.1.0 fmt:check
-> prettier --check *.ts lib/*.ts
-
-Checking formatting...
-All matched files use Prettier code style!
-
-> typescript-jest@0.1.0 lint
-> eslint main.ts lib/*.ts
-
-
-> typescript-jest@0.1.0 test
-> ts-node node_modules/jest/bin/jest.js
-
- PASS  lib/sample_test.ts
-  ✓ exported class (1 ms)
-  ✓ private function (1 ms)
-
-Test Suites: 1 passed, 1 total
-Tests:       2 passed, 2 total
-Snapshots:   0 total
-Time:        0.978 s, estimated 2 s
-Ran all test suites.
-```
-
-### コマンド
-
-| コマンド            | 内容                                                           |
-| :------------------ | :------------------------------------------------------------- |
-| `npm start`         | main.ts を実行します                                           |
-| `npm run fmt`       | コードの整形を行います                                         |
-| `npm run fmt:check` | コードの整形ルールに違反しているファイルがないかチェックします |
-| `npm run lint`      | コードの静的検証を行います                                     |
-| `npm run pretest`   | fmt:check と lint を行います                                   |
-| `npm test`          | pretest とテストをまとめて行います                             |
-| `npm run watch`     | ファイル変更を監視し、変更があったらテストを自動で行います     |
-
-## License
-
-Copyright (c) 2022 TDD BaseCamp and other contributors
-
-http://devtesting.jp/tddbc/
-
-https://github.com/tddbc
-
-Licensed under the MIT license.
+- [ ] 二つの整数を引数とするクラス
+  - [x] 整数値かどうかをチェックする
+    - [x] 引数が1, 2だったらインスタンスが正常に返る
+    - [x] 引数が0.1, 0.2だったら例外を投げる
+    - [x] 引数が0.1, 2だったら例外を投げる
+    - [x] 引数が1, 2.1だったら例外を投げる
+  - [x] インスタンスの下端点が意図したものかどうか
+    - [x] 引数が1, 2だったら1が返ってきて欲しい
+    - [x] 引数が2, 1だったら1が返ってきて欲しい
+  - [x] インスタンスの上端点が意図したものかどうか
+    - [x] 引数が1, 2だったら2が返ってきて欲しい
+    - [x] 引数が2, 1だったら2が返ってきて欲しい
+  - [x] 閉区間の文字列表現が返せる
+    - [x] 上端点が1,下端点が2の時は"[1, 2]"を返す
+  - [ ] 上端点が0, 下端点が2の閉区間に特定の整数が含まれるかどうかをブール値で返す
+    - [x] 下端未満のときfalseを返す
+    - [x] 下端のときtrue
+    - [x] 下端より大きいかつ上端未満の時true
+    - [x] 上端のときtrue
+    - [x] 上端より大きいときfalse
+    - [x] 整数以外の時はfalseを返す
+  - [x] 包括関係の比較ができる
+    - [x] 真部分集合かどうかをブール値で返す
+      - [x] "[1,3]"の真部分集合かどうかをブール値で返す
+        - [x] "[1,2]"はtrue
+        - [x] "[0,3]"はfalse
+        - [x] "[1,3]"はfalse
+    - [x] 等価かどうかをブール値で返す
+      - [x] "[1,3]"と等価かどうかをブール値で返す
+        - [x] "[1,3]"はtrue
+        - [x] "[1,2]"はfalse
+        - [x] "[0,3]"はfalse
+        <!-- - [ ] "[1,4]"
+        - [ ] "[0,3]"
+        - [ ] "[2,3]"
+        - [ ] "[2,2]" -->
